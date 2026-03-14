@@ -703,7 +703,7 @@
 
     <div class="route-map">
         <div id="map"></div>
-        <a class="map-open-btn" href="https://www.google.com/maps/dir/Seattle-Tacoma+International+Airport,+17801+International+Blvd,+Seattle,+WA/800+K+St,+Forks,+WA+98331/Hoh+Rain+Forest+Visitor+Center,+Olympic+National+Park,+WA/Cannon+Beach,+OR/Multnomah+Falls,+OR/Embassy+Suites+Portland+Downtown,+319+SW+Pine+St,+Portland,+OR" target="_blank" rel="noopener">Open Full Route in Google Maps</a>
+        <a class="map-open-btn" href="https://www.google.com/maps/dir/Seattle-Tacoma+International+Airport,+17801+International+Blvd,+Seattle,+WA/800+K+St,+Forks,+WA+98331/Hoh+Rain+Forest+Visitor+Center,+Olympic+National+Park,+WA/79799+East+Beach+Rd,+Arch+Cape,+OR/Multnomah+Falls,+OR/Embassy+Suites+Portland+Downtown,+319+SW+Pine+St,+Portland,+OR" target="_blank" rel="noopener">Open Full Route in Google Maps</a>
     </div>
 
     <script>
@@ -769,8 +769,8 @@
         L.marker([47.9397, -124.3964], {icon: hotelIcon()}).addTo(map)
             .bindPopup('<b style="font-size:14px;">Comfy PNW Escape</b><br><span style="color:#666;font-size:12px;">800 K St, Forks, WA</span><br><a href="https://www.vrbo.com/4673766" target="_blank" style="font-size:11px;color:#4338CA;">View on Vrbo</a><br>' + navLink('800 K St Forks WA', 47.9397, -124.3964), popupOpts);
 
-        L.marker([45.8818, -123.9615], {icon: hotelIcon()}).addTo(map)
-            .bindPopup('<b style="font-size:14px;">The Stephanie Inn</b><br><span style="color:#666;font-size:12px;">2740 S. Pacific, Cannon Beach, OR</span><br><a href="https://stephanieinn.com" target="_blank" style="font-size:11px;color:#4338CA;">stephanieinn.com</a><br>' + navLink('Stephanie Inn', 45.8818, -123.9615), popupOpts);
+        L.marker([45.8039, -123.9634], {icon: hotelIcon()}).addTo(map)
+            .bindPopup('<b style="font-size:14px;">Tranquil Arch Cape Escape</b><br><span style="color:#666;font-size:12px;">79799 East Beach Rd, Arch Cape, OR</span><br><a href="https://www.vrbo.com/1234577" target="_blank" style="font-size:11px;color:#4338CA;">View on Vrbo</a><br>' + navLink('79799 East Beach Rd Arch Cape OR', 45.8039, -123.9634), popupOpts);
 
         L.marker([45.5222, -122.6728], {icon: hotelIcon()}).addTo(map)
             .bindPopup('<b style="font-size:14px;">Embassy Suites Portland</b><br><span style="color:#666;font-size:12px;">319 SW Pine St, Portland, OR</span><br><a href="https://www.hilton.com/en/hotels/pdxpses-embassy-suites-portland-downtown/" target="_blank" style="font-size:11px;color:#4338CA;">hilton.com</a><br>' + navLink('Embassy Suites', 45.5222, -122.6728), popupOpts);
@@ -864,11 +864,11 @@
         // Segment 2: Forks → Cannon Beach (coastal)
         fetchRoute([
             [47.9504, -124.3856],
-            [45.8818, -123.9615]
+            [45.8039, -123.9634]
         ]);
         // Segment 3: Cannon Beach → Portland
         fetchRoute([
-            [45.8818, -123.9615],
+            [45.8039, -123.9634],
             [45.5222, -122.6728]
         ]);
 
@@ -1003,16 +1003,16 @@
             <p>Your spot. The trail through Ecola's coastal forest with views of cliffs dropping to the Pacific. Dense coastal evergreens, moss, ocean mist. (We'll check road access conditions closer to your trip date.)</p>
         </div>
         <div class="card stay-card">
-            <h3>🏨 Where You Stay</h3>
-            <div class="stay-name">The Stephanie Inn</div>
-            <p>An iconic, elegant oceanfront hotel steps from the beach. Fireplaces in every room. Soaking tubs. Binoculars for whale watching from your window. Lanterns for night beach walks. Complimentary gourmet breakfast and evening wine gathering. You can hear the ocean from your bed.</p>
+            <h3>🏠 Where You Stay</h3>
+            <div class="stay-name">Tranquil Arch Cape Escape, Arch Cape</div>
+            <p>A 3-bedroom, 2-bath beach house just south of Cannon Beach in Arch Cape — walk right down to the beach with sea stacks and rock formations. Set back from other homes for peace and quiet, steps from Oswald West State Park and Falcon Cove. 10/10 rated on Vrbo.</p>
             <div class="stay-details">
-                <a href="https://stephanieinn.com" target="_blank" rel="noopener">stephanieinn.com</a>
-                <a href="https://www.google.com/maps/search/?api=1&query=2740+S+Pacific+Cannon+Beach+OR+97110" target="_blank" rel="noopener">2740 S. Pacific, Cannon Beach, OR 97110</a>
+                <a href="https://www.vrbo.com/1234577" target="_blank" rel="noopener">View on Vrbo</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=79799+East+Beach+Rd+Arch+Cape+OR" target="_blank" rel="noopener">79799 East Beach Rd, Arch Cape, OR</a>
             </div>
             <div class="stay-images">
-                <img src="images/hotels/stephanie-inn-exterior.jpg" alt="The Stephanie Inn exterior" loading="lazy">
-                <img src="images/hotels/stephanie-inn-room.jpg" alt="The Stephanie Inn room" loading="lazy">
+                <img src="images/hotels/archcape-beach.webp" alt="Arch Cape Beach with rock formations" loading="lazy">
+                <img src="images/hotels/archcape-path.webp" alt="Path from house to the beach" loading="lazy">
             </div>
         </div>
     </div>
