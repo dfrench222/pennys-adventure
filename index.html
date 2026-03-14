@@ -35,14 +35,14 @@
 
         /* Hero */
         .hero {
-            min-height: 100vh;
-            background: linear-gradient(165deg, #1a2a1a 0%, #2d4a3e 30%, #3a6b7e 70%, #4a3a5c 100%);
+            min-height: 60vh;
+            background: url('images/penny-hero.webp') center top / cover no-repeat, linear-gradient(165deg, #1a2a1a 0%, #2d4a3e 30%, #3a6b7e 70%, #4a3a5c 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 2rem;
+            padding: 4rem 2rem;
             position: relative;
             overflow: hidden;
         }
@@ -54,12 +54,41 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(ellipse at 20% 50%, rgba(90, 122, 90, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 80% 30%, rgba(58, 107, 126, 0.2) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(74, 58, 92, 0.3) 0%, transparent 50%);
+            background: linear-gradient(to bottom, rgba(26, 42, 26, 0.55) 0%, rgba(45, 74, 62, 0.5) 40%, rgba(58, 107, 126, 0.6) 70%, rgba(74, 58, 92, 0.7) 100%);
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                background: linear-gradient(165deg, #1a2a1a 0%, #2d4a3e 30%, #3a6b7e 70%, #4a3a5c 100%);
+            }
+            .hero::before {
+                background: none;
+            }
+            .hero-image {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 30%;
+                z-index: 1;
+                overflow: hidden;
+            }
+            .hero-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center top;
+            }
+        }
+
+        .hero-image {
+            display: none;
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             max-width: 700px;
         }
 
@@ -313,6 +342,57 @@
             letter-spacing: 0.1em;
         }
 
+        .drive-info {
+            background: #f0f4f3;
+            border-radius: 10px;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.88rem;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .drive-info span {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .drive-info .drive-divider {
+            color: var(--mist);
+            font-weight: 300;
+        }
+
+        .drive-info-stacked {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.35rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .drive-info-row {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        @media (min-width: 768px) {
+            .drive-info-stacked {
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.88rem;
+            }
+            .drive-info-row:not(:last-child)::after {
+                content: '|';
+                color: var(--mist);
+                font-weight: 300;
+                margin-left: 0.5rem;
+            }
+        }
+
         .stay-card .stay-name {
             font-family: 'Playfair Display', serif;
             font-size: 1.2rem;
@@ -320,39 +400,63 @@
             margin-bottom: 0.5rem;
         }
 
+        .stay-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .stay-details a {
+            color: var(--ocean);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .stay-details a:hover {
+            text-decoration: underline;
+        }
+
         /* Image Placeholders */
         .image-card {
-            background: linear-gradient(135deg, #e8efe8 0%, #d8e5df 100%);
+            background: #1a1a1a;
             border-radius: 16px;
-            padding: 3rem 2rem;
+            padding: 0;
             text-align: center;
             margin-bottom: 1.5rem;
             position: relative;
             overflow: hidden;
+            height: 400px;
         }
 
-        .image-card.ocean-img {
-            background: linear-gradient(135deg, #dae8ef 0%, #c8dde8 100%);
-        }
-
-        .image-card.sunset-img {
-            background: linear-gradient(135deg, #f0e8df 0%, #e8d8c8 100%);
-        }
-
-        .image-card.falls-img {
-            background: linear-gradient(135deg, #d8e0ef 0%, #c8d5e8 100%);
-        }
-
-        .image-card .img-emoji {
-            font-size: 3rem;
-            margin-bottom: 0.75rem;
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .image-card .img-caption {
             font-family: 'Crimson Text', serif;
             font-style: italic;
             font-size: 1rem;
-            color: var(--light-text);
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+
+        .image-card .img-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.5));
+            z-index: 1;
         }
 
         /* Photo Hit List */
@@ -386,6 +490,7 @@
             align-items: center;
             padding: 1rem 1.5rem;
             border-bottom: 1px solid #f0ede8;
+            gap: 1rem;
         }
 
         .photo-row:last-child {
@@ -404,7 +509,14 @@
             font-size: 0.8rem;
             font-weight: 600;
             flex-shrink: 0;
-            margin-right: 1rem;
+        }
+
+        .photo-thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
         }
 
         .photo-info {
@@ -421,6 +533,34 @@
             font-size: 0.8rem;
             color: var(--light-text);
             margin-top: 0.15rem;
+        }
+
+        /* Stay card images */
+        .stay-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .stay-images img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .photo-thumb {
+                width: 64px;
+                height: 64px;
+            }
+            .stay-images {
+                grid-template-columns: 1fr;
+            }
+            .stay-images img {
+                height: 200px;
+            }
         }
 
         /* Evening Options */
@@ -482,6 +622,47 @@
             letter-spacing: 1rem;
         }
 
+        /* Route Map */
+        .route-map {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 2rem;
+        }
+
+        .route-map #map {
+            width: 100%;
+            height: 500px;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+        }
+
+        .route-map .map-open-btn {
+            display: block;
+            margin: 1rem auto 0;
+            padding: 0.75rem 1.5rem;
+            background: var(--forest);
+            color: #fff;
+            border: none;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .route-map .map-open-btn:hover {
+            background: var(--ocean);
+        }
+
+        @media (max-width: 600px) {
+            .route-map #map {
+                height: 400px;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             .card {
@@ -495,13 +676,16 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
     <div class="hero">
+        <div class="hero-image"><img src="images/penny-hero.webp" alt="Penny's Twilight look"></div>
         <div class="hero-content">
             <div class="hero-trees">🌲 🌲 🌲</div>
             <h1>Penny's Pacific Northwest Adventure</h1>
-            <p class="hero-subtitle">April 3–10, 2026 • Seattle → Olympic Peninsula → Cannon Beach → Portland</p>
+            <p class="hero-subtitle">April 4–10, 2026 • Seattle → Olympic Peninsula → Cannon Beach → Portland</p>
             <p class="hero-quote">"The Olympic Peninsula is the most beautiful place I have ever been."</p>
             <p class="hero-quote-attr">— Bella Swan, Twilight</p>
         </div>
@@ -511,8 +695,187 @@
     <div class="route-banner">
         <h2>🗺️ THE ROUTE</h2>
         <div class="route-flow">Seattle ✈️ → Olympic Peninsula 🌧️ → Cannon Beach 🌊 → Portland 🌁 → Home ✈️</div>
-        <div class="route-summary">7 nights • 4 bases • Zero boring days.</div>
+        <div class="route-summary">6 nights • 4 bases • Zero boring days.</div>
     </div>
+
+    <div class="route-map">
+        <div id="map"></div>
+        <a class="map-open-btn" href="https://www.google.com/maps/dir/Seattle-Tacoma+International+Airport,+17801+International+Blvd,+Seattle,+WA/Woodland+Inns,+711+S+Forks+Ave,+Forks,+WA/Hoh+Rain+Forest+Visitor+Center,+Olympic+National+Park,+WA/Cannon+Beach,+OR/Multnomah+Falls,+OR/Embassy+Suites+Portland+Downtown,+319+SW+Pine+St,+Portland,+OR" target="_blank" rel="noopener">Open Full Route in Google Maps</a>
+    </div>
+
+    <script>
+    (function() {
+        var map = L.map('map', { scrollWheelZoom: false, zoomControl: true }).setView([46.8, -123.2], 7);
+
+        // Modern Google Maps-style tiles (CartoDB Voyager)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Custom marker icons
+        function hotelIcon() {
+            return L.divIcon({
+                className: '',
+                html: '<div style="background:#fff;width:32px;height:32px;border-radius:50%;border:3px solid #4338CA;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;font-size:15px;">🏨</div>',
+                iconSize: [32, 32],
+                iconAnchor: [16, 16],
+                popupAnchor: [0, -18]
+            });
+        }
+        function stopIcon() {
+            return L.divIcon({
+                className: '',
+                html: '<div style="background:#4338CA;width:14px;height:14px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,0.3);"></div>',
+                iconSize: [14, 14],
+                iconAnchor: [7, 7],
+                popupAnchor: [0, -10]
+            });
+        }
+        function photoIcon(num) {
+            return L.divIcon({
+                className: '',
+                html: '<div style="background:#4338CA;width:24px;height:24px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;font-family:Inter,system-ui,sans-serif;">' + num + '</div>',
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+                popupAnchor: [0, -14]
+            });
+        }
+        function airportIcon() {
+            return L.divIcon({
+                className: '',
+                html: '<div style="background:#fff;width:32px;height:32px;border-radius:50%;border:3px solid #4338CA;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;font-size:15px;">✈️</div>',
+                iconSize: [32, 32],
+                iconAnchor: [16, 16],
+                popupAnchor: [0, -18]
+            });
+        }
+
+        function navLink(name, lat, lng) {
+            return '<a href="https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '" target="_blank" rel="noopener" style="display:inline-block;margin-top:4px;color:#fff;background:#4338CA;padding:4px 10px;border-radius:4px;font-weight:600;text-decoration:none;font-size:12px;">Navigate &rarr;</a>';
+        }
+
+        // Popup style
+        var popupOpts = { className: 'custom-popup', maxWidth: 220 };
+
+        // === MAIN STOPS (Hotels + Airport) ===
+        L.marker([47.4502, -122.3088], {icon: airportIcon()}).addTo(map)
+            .bindPopup('<b style="font-size:14px;">SEA-TAC Airport</b><br><span style="color:#666;font-size:12px;">Starting point</span><br>' + navLink('SEA-TAC', 47.4502, -122.3088), popupOpts);
+
+        L.marker([47.9504, -124.3856], {icon: hotelIcon()}).addTo(map)
+            .bindPopup('<b style="font-size:14px;">Woodland Inns</b><br><span style="color:#666;font-size:12px;">711 S. Forks Ave, Forks, WA</span><br><a href="https://woodlandinns.com" target="_blank" style="font-size:11px;color:#4338CA;">woodlandinns.com</a><br>' + navLink('Woodland Inns', 47.9504, -124.3856), popupOpts);
+
+        L.marker([45.8818, -123.9615], {icon: hotelIcon()}).addTo(map)
+            .bindPopup('<b style="font-size:14px;">The Stephanie Inn</b><br><span style="color:#666;font-size:12px;">2740 S. Pacific, Cannon Beach, OR</span><br><a href="https://stephanieinn.com" target="_blank" style="font-size:11px;color:#4338CA;">stephanieinn.com</a><br>' + navLink('Stephanie Inn', 45.8818, -123.9615), popupOpts);
+
+        L.marker([45.5222, -122.6728], {icon: hotelIcon()}).addTo(map)
+            .bindPopup('<b style="font-size:14px;">Embassy Suites Portland</b><br><span style="color:#666;font-size:12px;">319 SW Pine St, Portland, OR</span><br><a href="https://www.hilton.com/en/hotels/pdxpses-embassy-suites-portland-downtown/" target="_blank" style="font-size:11px;color:#4338CA;">hilton.com</a><br>' + navLink('Embassy Suites', 45.5222, -122.6728), popupOpts);
+
+        // === PHOTO SPOTS (numbered to match Photo Hit List) ===
+        // #1 — Selfie with Bella's Truck
+        L.marker([47.9504, -124.3830], {icon: photoIcon(1)}).addTo(map)
+            .bindPopup('<b>📸 #1 — Selfie with Bella\'s Truck</b><br><span style="color:#666;font-size:12px;">Forks Chamber of Commerce</span><br>' + navLink('Forks CoC', 47.9504, -124.3830), popupOpts);
+
+        // #2 — Standing in the moss cathedral
+        L.marker([47.8609, -123.9345], {icon: photoIcon(2)}).addTo(map)
+            .bindPopup('<b>📸 #2 — Moss cathedral</b><br><span style="color:#666;font-size:12px;">Hall of Mosses, Hoh Rainforest</span><br>' + navLink('Hoh Rainforest', 47.8609, -123.9345), popupOpts);
+
+        // #3 — Sea stacks in the mist
+        L.marker([47.8980, -124.6275], {icon: photoIcon(3)}).addTo(map)
+            .bindPopup('<b>📸 #3 — Sea stacks in the mist</b><br><span style="color:#666;font-size:12px;">Second Beach, La Push</span><br>' + navLink('Second Beach', 47.8980, -124.6275), popupOpts);
+
+        // #4 — Driftwood + ocean at golden hour
+        L.marker([47.9207, -124.6382], {icon: photoIcon(4)}).addTo(map)
+            .bindPopup('<b>📸 #4 — Driftwood + ocean</b><br><span style="color:#666;font-size:12px;">Rialto Beach</span><br>' + navLink('Rialto Beach', 47.9207, -124.6382), popupOpts);
+
+        // #5 — Haystack Rock at sunset
+        L.marker([45.8843, -123.9690], {icon: photoIcon(5)}).addTo(map)
+            .bindPopup('<b>📸 #5 — Haystack Rock at sunset</b><br><span style="color:#666;font-size:12px;">Cannon Beach</span><br>' + navLink('Haystack Rock', 45.8843, -123.9690), popupOpts);
+
+        // #6 — Coastal forest trail
+        L.marker([45.9226, -123.9766], {icon: photoIcon(6)}).addTo(map)
+            .bindPopup('<b>📸 #6 — Coastal forest trail</b><br><span style="color:#666;font-size:12px;">Indian Beach, Ecola State Park</span><br>' + navLink('Ecola SP', 45.9226, -123.9766), popupOpts);
+
+        // #7 — Waterfall power shot
+        L.marker([45.5762, -122.1158], {icon: photoIcon(7)}).addTo(map)
+            .bindPopup('<b>📸 #7 — Waterfall power shot</b><br><span style="color:#666;font-size:12px;">Multnomah Falls</span><br>' + navLink('Multnomah Falls', 45.5762, -122.1158), popupOpts);
+
+        // #8 — Walking behind a waterfall
+        L.marker([44.8773, -122.6543], {icon: photoIcon(8)}).addTo(map)
+            .bindPopup('<b>📸 #8 — Behind the waterfall</b><br><span style="color:#666;font-size:12px;">Silver Falls State Park</span><br>' + navLink('Silver Falls', 44.8773, -122.6543), popupOpts);
+
+        // #9 — Mossy urban forest
+        L.marker([45.5370, -122.7440], {icon: photoIcon(9)}).addTo(map)
+            .bindPopup('<b>📸 #9 — Mossy urban forest</b><br><span style="color:#666;font-size:12px;">Forest Park, Portland</span><br>' + navLink('Forest Park', 45.5370, -122.7440), popupOpts);
+
+        // #10 — Lake Crescent turquoise water
+        L.marker([48.0597, -123.7920], {icon: photoIcon(10)}).addTo(map)
+            .bindPopup('<b>📸 #10 — Turquoise water</b><br><span style="color:#666;font-size:12px;">Lake Crescent, Olympic NP</span><br>' + navLink('Lake Crescent', 48.0597, -123.7920), popupOpts);
+
+        // === OTHER ATTRACTIONS (not photo spots) ===
+        L.marker([47.9457, -124.3855], {icon: stopIcon()}).addTo(map)
+            .bindPopup('<b>Forks High School</b><br><span style="color:#666;font-size:12px;">Yes, THAT Forks High School</span><br>' + navLink('Forks HS', 47.9457, -124.3855), popupOpts);
+
+        L.marker([45.5231, -122.6815], {icon: stopIcon()}).addTo(map)
+            .bindPopup('<b>Powell\'s City of Books</b><br><span style="color:#666;font-size:12px;">World\'s largest indie bookstore</span><br>' + navLink('Powells', 45.5231, -122.6815), popupOpts);
+
+        // === ROUTE — fetch real roads from OSRM ===
+        var routeStyle = {color: '#4338CA', weight: 6, opacity: 0.85, lineCap: 'round', lineJoin: 'round'};
+        var routeShadow = {color: '#1e1b4b', weight: 9, opacity: 0.3, lineCap: 'round', lineJoin: 'round'};
+
+        function decodePolyline(encoded) {
+            var points = [], lat = 0, lng = 0, i = 0;
+            while (i < encoded.length) {
+                var b, shift = 0, result = 0;
+                do { b = encoded.charCodeAt(i++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+                lat += ((result & 1) ? ~(result >> 1) : (result >> 1));
+                shift = 0; result = 0;
+                do { b = encoded.charCodeAt(i++) - 63; result |= (b & 0x1f) << shift; shift += 5; } while (b >= 0x20);
+                lng += ((result & 1) ? ~(result >> 1) : (result >> 1));
+                points.push([lat / 1e5, lng / 1e5]);
+            }
+            return points;
+        }
+
+        function fetchRoute(coords) {
+            var coordStr = coords.map(function(c) { return c[1] + ',' + c[0]; }).join(';');
+            return fetch('https://router.project-osrm.org/route/v1/driving/' + coordStr + '?overview=full&geometries=polyline')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.routes && data.routes[0]) {
+                        var pts = decodePolyline(data.routes[0].geometry);
+                        L.polyline(pts, routeShadow).addTo(map);
+                        L.polyline(pts, routeStyle).addTo(map);
+                    }
+                });
+        }
+
+        // Fetch routes in segments to stay within OSRM limits
+        // Segment 1: SEA-TAC → Lake Crescent → Forks
+        fetchRoute([
+            [47.4502, -122.3088],
+            [48.0597, -123.7920],
+            [47.9504, -124.3856]
+        ]);
+        // Segment 2: Forks → Cannon Beach (coastal)
+        fetchRoute([
+            [47.9504, -124.3856],
+            [45.8818, -123.9615]
+        ]);
+        // Segment 3: Cannon Beach → Portland
+        fetchRoute([
+            [45.8818, -123.9615],
+            [45.5222, -122.6728]
+        ]);
+
+        // Fit map to show everything
+        map.fitBounds([
+            [44.8, -124.7],
+            [48.2, -122.0]
+        ], {padding: [30, 30]});
+    })();
+    </script>
 
     <div class="intro">
         <p>This trip was designed for you. Twilight vibes, ancient forests dripping with moss, wild beaches with sea stacks rising from the mist, and the kind of nature photos your friends have never seen. Every day has a "wow" moment. Bring your camera and your sense of wonder.</p>
@@ -520,31 +883,25 @@
 
     <div class="day-section">
         <div class="day-header">
-            <div class="day-emoji">✈️</div>
-            <span class="day-label">Day 1</span>
-            <h2>Arrival in Seattle</h2>
-            <p class="day-tagline">"City buzz. Anticipation. We're really doing this."</p>
-        </div>
-        <div class="card">
-            <p>You land in Seattle and check into a downtown hotel with skyline views. Tonight is light — dinner somewhere fun, maybe Pike Place Market for sunset vibes if you're not too tired. Sleep well. Tomorrow the real adventure begins.</p>
-        </div>
-    </div>
-
-    <div class="divider">· · ·</div>
-
-    <div class="day-section">
-        <div class="day-header">
-            <div class="day-emoji">🌧️</div>
-            <span class="day-label twilight">Day 2</span>
-            <h2>Seattle → Forks: Welcome to Twilight Country</h2>
+            <div class="day-emoji">✈️🌧️</div>
+            <span class="day-label twilight">Day 1</span>
+            <h2>Fly In + Drive to Forks: Welcome to Twilight Country</h2>
             <p class="day-tagline">"I just walked through Bella's world."</p>
         </div>
+        <div class="drive-info drive-info-stacked">
+            <div class="drive-info-row">✈️ Alaska 355, FLL → SEA (early morning April 4)</div>
+            <div class="drive-info-row">🚗 Hertz rental pickup at SEA-TAC</div>
+            <div class="drive-info-row">🚗 SEA-TAC → Forks: <span>~3 hr 50 min</span></div>
+        </div>
         <div class="card">
+            <p>Early morning flight from Fort Lauderdale to Seattle on Alaska Airlines flight 355. Land, grab your Hertz rental car at SEA-TAC, and hit the road — the adventure starts immediately.</p>
             <p>The drive from Seattle to Forks takes you through deep forests and past Lake Crescent — a glacier-carved, impossibly turquoise lake inside Olympic National Park. Stop. Get out. Take photos. It's unreal.</p>
         </div>
-        <div class="image-card ocean-img">
-            <div class="img-emoji">🌠</div>
-            <div class="img-caption">Lake Crescent — Stop here on your drive to Forks</div>
+        <div class="image-card">
+            <img src="images/lake-crescent.jpg" alt="Lake Crescent, Olympic National Park" loading="lazy">
+            <div class="img-overlay">
+                <div class="img-caption">Lake Crescent — Stop here on your drive to Forks</div>
+            </div>
         </div>
         <div class="card">
             <p>You arrive in Forks — population 3,446, the rainiest town in the lower 48, and the town Stephenie Meyer chose as Bella Swan's new home.</p>
@@ -560,30 +917,45 @@
                 <li>Pick up a <strong>free self-guided Twilight tour map</strong> at the Forks Chamber of Commerce</li>
             </ul>
         </div>
+        <div class="image-card">
+            <img src="images/penny-twilight.webp" alt="Penny's Twilight transformation" loading="lazy">
+            <div class="img-overlay">
+                <div class="img-caption">Penny's Twilight era — ready for Forks</div>
+            </div>
+        </div>
         <div class="card stay-card">
             <h3>🏠 Where You Stay</h3>
             <div class="stay-name">Woodland Inns, Forks</div>
             <p>Beautiful private cabins with fireplaces, full kitchens, and cozy vibes. Think luxury cabin in the woods. Your own front porch. The forest right outside your door.</p>
+            <div class="stay-details">
+                <a href="https://woodlandinns.com" target="_blank" rel="noopener">woodlandinns.com</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=711+S+Forks+Ave+Forks+WA+98331" target="_blank" rel="noopener">711 S. Forks Ave, Forks, WA 98331</a>
+            </div>
+            <div class="stay-images">
+                <img src="images/hotels/woodland-inns-exterior.jpg" alt="Woodland Inns exterior" loading="lazy">
+                <img src="images/hotels/woodland-inns-room.jpg" alt="Woodland Inns cabin interior" loading="lazy">
+            </div>
         </div>
     </div>
-
-    <div class="divider">· · ·</div>
 
     <div class="day-section">
         <div class="day-header">
             <div class="day-emoji">🌿</div>
-            <span class="day-label forest-green">Day 3</span>
+            <span class="day-label forest-green">Day 2</span>
             <h2>The Rainforest + Wild Beaches</h2>
             <p class="day-tagline">"This is the most beautiful place I've ever been."</p>
         </div>
+        <div class="drive-info">🚗 Forks → Hoh Rainforest: <span>45 min one-way</span> <span class="drive-divider">|</span> Forks → La Push beaches: <span>20 min one-way</span> <span class="drive-divider">|</span> Total driving: <span>~2 hr 30 min</span></div>
         <div class="card">
             <h3>Morning: Hoh Rain Forest — Hall of Mosses Trail</h3>
             <p>A 1.2-mile loop through the most magical forest on Earth. Western hemlocks and bigleaf maples draped in every shade of green you can imagine — hanging mosses, ferns carpeting the floor, trees reaching 250 feet into the sky. It feels like walking into another world.</p>
             <p>The light filters through the canopy like something from a fairy tale. This trail is easy enough for anyone but stunning enough to leave you speechless.</p>
         </div>
         <div class="image-card">
-            <div class="img-emoji">🌳</div>
-            <div class="img-caption">Hall of Mosses Trail — Every shade of green you can imagine</div>
+            <img src="images/hall-of-mosses.jpg" alt="Hall of Mosses Trail, Hoh Rainforest" loading="lazy">
+            <div class="img-overlay">
+                <div class="img-caption">Hall of Mosses Trail — Every shade of green you can imagine</div>
+            </div>
         </div>
         <div class="card">
             <p><em>"I swear, I've never seen anything like it. The greenness and the size of the plants are beyond anything on the east coast."</em></p>
@@ -591,9 +963,11 @@
             <p>A 0.7-mile trail winds through dense, mossy forest and then drops you onto a wild sandy beach with massive sea stacks rising from the ocean, tidepools, a natural rock arch, and driftwood scattered everywhere.</p>
             <p>This is where Jacob told Bella the truth about Edward on the beach. The mist, the sound of the waves, the raw Pacific coast — this is peak Twilight energy.</p>
         </div>
-        <div class="image-card ocean-img">
-            <div class="img-emoji">🌊</div>
-            <div class="img-caption">Second Beach, La Push — Sea stacks, mist, and Twilight memories</div>
+        <div class="image-card">
+            <img src="images/la-push.jpg" alt="Second Beach, La Push" loading="lazy">
+            <div class="img-overlay">
+                <div class="img-caption">Second Beach, La Push — Sea stacks, mist, and Twilight memories</div>
+            </div>
         </div>
         <div class="card">
             <h3>Sunset: Rialto Beach</h3>
@@ -601,24 +975,25 @@
         </div>
     </div>
 
-    <div class="divider">· · ·</div>
-
     <div class="day-section">
         <div class="day-header">
             <div class="day-emoji">🚗</div>
-            <span class="day-label ocean">Day 4</span>
+            <span class="day-label ocean">Day 3</span>
             <h2>Forks → Cannon Beach: Penny's Favorite Place</h2>
             <p class="day-tagline">"I never want to leave this place."</p>
         </div>
+        <div class="drive-info">🚗 Forks → Cannon Beach: <span>~4 hr 30 min one-way</span> <span class="drive-divider">|</span> Ecola State Park: <span>10 min from hotel</span></div>
         <div class="card">
             <p>A scenic 4.5–5 hour coastal drive from Forks down to Cannon Beach, Oregon. The drive itself is gorgeous — forests, small coastal towns, bridges over rivers.</p>
             <p>You arrive at Cannon Beach in the afternoon. Walk out to the beach. And there it is:</p>
             <h3>🪨 Haystack Rock</h3>
             <p>235 feet of ancient basalt rising straight out of the sand. Surrounded by tidepools. At low tide you can walk right up to it. At sunset, it silhouettes against pink and orange sky. This is one of the most photographed landmarks on the entire Pacific Coast.</p>
         </div>
-        <div class="image-card sunset-img">
-            <div class="img-emoji">🌅</div>
-            <div class="img-caption">Haystack Rock at sunset — Your moment</div>
+        <div class="image-card">
+            <img src="images/cannon-beach.jpg" alt="Haystack Rock, Cannon Beach" loading="lazy">
+            <div class="img-overlay">
+                <div class="img-caption">Haystack Rock at sunset — Your moment</div>
+            </div>
         </div>
         <div class="card">
             <h3>🥾 Indian Beach Trail / Ecola State Park</h3>
@@ -628,18 +1003,25 @@
             <h3>🏨 Where You Stay</h3>
             <div class="stay-name">The Stephanie Inn</div>
             <p>An iconic, elegant oceanfront hotel steps from the beach. Fireplaces in every room. Soaking tubs. Binoculars for whale watching from your window. Lanterns for night beach walks. Complimentary gourmet breakfast and evening wine gathering. You can hear the ocean from your bed.</p>
+            <div class="stay-details">
+                <a href="https://stephanieinn.com" target="_blank" rel="noopener">stephanieinn.com</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=2740+S+Pacific+Cannon+Beach+OR+97110" target="_blank" rel="noopener">2740 S. Pacific, Cannon Beach, OR 97110</a>
+            </div>
+            <div class="stay-images">
+                <img src="images/hotels/stephanie-inn-exterior.jpg" alt="The Stephanie Inn exterior" loading="lazy">
+                <img src="images/hotels/stephanie-inn-room.jpg" alt="The Stephanie Inn room" loading="lazy">
+            </div>
         </div>
     </div>
-
-    <div class="divider">· · ·</div>
 
     <div class="day-section">
         <div class="day-header">
             <div class="day-emoji">🌁</div>
-            <span class="day-label warm">Day 5</span>
+            <span class="day-label warm">Day 4</span>
             <h2>Cannon Beach → Portland</h2>
             <p class="day-tagline">City energy meets Pacific Northwest cool.</p>
         </div>
+        <div class="drive-info">🚗 Cannon Beach → Portland: <span>~1 hr 30 min one-way</span></div>
         <div class="card">
             <p>Start the morning with one last walk on the beach. Maybe catch low tide at Haystack Rock.</p>
             <p>Short 1.5-hour drive to Portland — Oregon's coolest city. Check in, explore the neighborhood, and ease into city mode.</p>
@@ -653,27 +1035,36 @@
             <h3>🏨 Where You Stay</h3>
             <div class="stay-name">Embassy Suites by Hilton Portland Downtown</div>
             <p>Spacious family suite, separate living area, complimentary breakfast every morning, and an evening reception. Downtown location, walking distance to everything.</p>
+            <div class="stay-details">
+                <a href="https://www.hilton.com/en/hotels/pdxpses-embassy-suites-portland-downtown/" target="_blank" rel="noopener">hilton.com</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=319+SW+Pine+St+Portland+OR+97204" target="_blank" rel="noopener">319 SW Pine St, Portland, OR 97204</a>
+            </div>
+            <div class="stay-images">
+                <img src="images/hotels/embassy-suites-exterior.jpg" alt="Embassy Suites Portland exterior" loading="lazy">
+                <img src="images/hotels/embassy-suites-room.jpg" alt="Embassy Suites Portland suite" loading="lazy">
+            </div>
         </div>
     </div>
-
-    <div class="divider">· · ·</div>
 
     <div class="day-section">
         <div class="day-header">
             <div class="day-emoji">💧</div>
-            <span class="day-label">Day 6</span>
+            <span class="day-label">Day 5</span>
             <h2>Waterfall Day: Columbia River Gorge + Multnomah Falls</h2>
             <p class="day-tagline">"I literally walked behind a waterfall."</p>
         </div>
+        <div class="drive-info">🚗 Portland → Multnomah Falls: <span>30 min one-way</span> <span class="drive-divider">|</span> Portland → Silver Falls: <span>1 hr one-way</span> <span class="drive-divider">|</span> Total driving: <span>~2–3 hr</span></div>
         <div class="card">
             <p>A half-day trip east of Portland into the Columbia River Gorge — a dramatic river canyon with dozens of waterfalls.</p>
             <h3>Multnomah Falls</h3>
             <p>Oregon's tallest waterfall. 620 feet of cascading water, fed by underground springs. In April, the flow is at its strongest — spring runoff makes the falls absolutely thundering.</p>
             <p>No reservations needed in April (timed permits are only required May 22–Sept 7). Walk up to Benson Bridge for the classic view, or hike to the top for the full experience.</p>
         </div>
-        <div class="image-card falls-img">
-            <div class="img-emoji">🎨</div>
-            <div class="img-caption">Multnomah Falls — 620 feet of spring-fed power</div>
+        <div class="image-card">
+            <img src="images/multnomah-falls.jpg" alt="Multnomah Falls, Oregon" loading="lazy">
+            <div class="img-overlay">
+                <div class="img-caption">Multnomah Falls — 620 feet of spring-fed power</div>
+            </div>
         </div>
         <div class="card">
             <h3>Bonus Option: Silver Falls State Park</h3>
@@ -682,15 +1073,14 @@
         </div>
     </div>
 
-    <div class="divider">· · ·</div>
-
     <div class="day-section">
         <div class="day-header">
             <div class="day-emoji">🌲</div>
-            <span class="day-label forest-green">Day 7</span>
+            <span class="day-label forest-green">Day 6</span>
             <h2>Forest Park + Chill Portland Day</h2>
             <p class="day-tagline">Relaxed, golden. "I don't want to go home."</p>
         </div>
+        <div class="drive-info">🚗 Hotel → Forest Park: <span>15 min one-way</span> <span class="drive-divider">|</span> Minimal driving day — mostly exploring on foot</div>
         <div class="card">
             <h3>Morning: Forest Park</h3>
             <p>Portland has a 5,200-acre urban forest — one of the largest in any US city. The trails feel like a quieter version of the Hoh Rainforest. Mossy trees, fern-lined paths, dappled light. Perfect for one more round of magical forest photos.</p>
@@ -706,20 +1096,17 @@
         </div>
     </div>
 
-    <div class="divider">· · ·</div>
-
     <div class="day-section">
         <div class="day-header">
             <div class="day-emoji">✈️</div>
-            <span class="day-label">Day 8</span>
+            <span class="day-label">Day 7</span>
             <h2>Portland → Home</h2>
         </div>
+        <div class="drive-info">🚗 Hotel → PDX Airport: <span>~20 min</span></div>
         <div class="card">
             <p>Morning flight from Portland (PDX) back to Florida. Sleep on the plane. Dream about mossy forests and misty beaches.</p>
         </div>
     </div>
-
-    <div class="divider">· · ·</div>
 
     <div class="photo-list">
         <div class="photo-list-header">
@@ -728,6 +1115,7 @@
         <div class="photo-table">
             <div class="photo-row">
                 <div class="photo-num">1</div>
+                <img class="photo-thumb" src="images/photos/bellas-truck.jpg" alt="Bella's Truck" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Selfie with Bella's Truck</div>
                     <div class="photo-location">Forks Chamber of Commerce</div>
@@ -735,6 +1123,7 @@
             </div>
             <div class="photo-row">
                 <div class="photo-num">2</div>
+                <img class="photo-thumb" src="images/photos/hall-of-mosses.jpg" alt="Hall of Mosses" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Standing in the moss cathedral</div>
                     <div class="photo-location">Hall of Mosses, Hoh Rainforest</div>
@@ -742,6 +1131,7 @@
             </div>
             <div class="photo-row">
                 <div class="photo-num">3</div>
+                <img class="photo-thumb" src="images/photos/sea-stacks.jpg" alt="Sea stacks" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Sea stacks in the mist</div>
                     <div class="photo-location">Second Beach, La Push</div>
@@ -749,6 +1139,7 @@
             </div>
             <div class="photo-row">
                 <div class="photo-num">4</div>
+                <img class="photo-thumb" src="images/photos/rialto-beach.jpg" alt="Rialto Beach" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Driftwood + ocean at golden hour</div>
                     <div class="photo-location">Rialto Beach</div>
@@ -756,6 +1147,7 @@
             </div>
             <div class="photo-row">
                 <div class="photo-num">5</div>
+                <img class="photo-thumb" src="images/photos/haystack-rock-sunset.jpg" alt="Haystack Rock sunset" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Haystack Rock at sunset</div>
                     <div class="photo-location">Cannon Beach</div>
@@ -763,6 +1155,7 @@
             </div>
             <div class="photo-row">
                 <div class="photo-num">6</div>
+                <img class="photo-thumb" src="images/photos/ecola-trail.jpg" alt="Ecola trail" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Coastal forest trail</div>
                     <div class="photo-location">Indian Beach, Ecola State Park</div>
@@ -770,6 +1163,7 @@
             </div>
             <div class="photo-row">
                 <div class="photo-num">7</div>
+                <img class="photo-thumb" src="images/photos/multnomah-falls.jpg" alt="Multnomah Falls" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Waterfall power shot</div>
                     <div class="photo-location">Multnomah Falls</div>
@@ -777,6 +1171,7 @@
             </div>
             <div class="photo-row">
                 <div class="photo-num">8</div>
+                <img class="photo-thumb" src="images/photos/silver-falls.jpg" alt="Silver Falls" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Walking behind a waterfall</div>
                     <div class="photo-location">Silver Falls (if you go)</div>
@@ -784,6 +1179,7 @@
             </div>
             <div class="photo-row">
                 <div class="photo-num">9</div>
+                <img class="photo-thumb" src="images/photos/forest-park.jpg" alt="Forest Park" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Mossy urban forest</div>
                     <div class="photo-location">Forest Park, Portland</div>
@@ -791,6 +1187,7 @@
             </div>
             <div class="photo-row">
                 <div class="photo-num">10</div>
+                <img class="photo-thumb" src="images/photos/lake-crescent.jpg" alt="Lake Crescent" loading="lazy">
                 <div class="photo-info">
                     <div class="photo-shot">Lake Crescent turquoise water</div>
                     <div class="photo-location">Lake Crescent, Olympic NP</div>
