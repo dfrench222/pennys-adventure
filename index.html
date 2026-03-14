@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penny's Pacific Northwest Adventure</title>
+    <style>
+        :root {
+            --forest: #2d4a3e;
+            --moss: #5a7a5a;
+            --mist: #c8d5d0;
+            --ocean: #3a6b7e;
+            --twilight: #4a3a5c;
+            --sand: #f5f0e8;
+            --warm: #d4a574;
+            --dusk: #c47a5a;
+            --dark: #1a1a2e;
+            --text: #2c2c2c;
+            --light-text: #6b6b6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: var(--sand);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(165deg, #1a2a1a 0%, #2d4a3e 30%, #3a6b7e 70%, #4a3a5c 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(90, 122, 90, 0.3) 0%, transparent 50%), radial-gradient(ellipse at 80% 30%, rgba(58, 107, 126, 0.2) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(74, 58, 92, 0.3) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .hero-trees {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5rem;
+            opacity: 0.7;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            color: #fff;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            color: rgba(255,255,255,0.75);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-quote {
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.65);
+            max-width: 500px;
+            margin: 0 auto 0.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-quote-attr {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            font-weight: 300;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.4;
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateX(-50%) translateY(5px);
+            }
+        }
+
+        /* Route Banner */
+        .route-banner {
+            background: var(--forest);
+            color: #fff;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .route-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .route-flow {
+            font-size: clamp(0.9rem, 2vw, 1.05rem);
+            line-height: 2;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .route-summary {
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            font-weight: 300;
+        }
+
+        /* Intro */
+        .intro {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            text-align: center;
+        }
+
+        .intro p {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: var(--light-text);
+        }
+
+        /* Day Cards */
+        .day-section {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding: 0 1.5rem;
+        }
+
+        .day-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-top: 2rem;
+        }
+
+        .day-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #fff;
+            background: var(--forest);
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .day-label.twilight {
+            background: var(--twilight);
+        }
+
+        .day-label.ocean {
+            background: var(--ocean);
+        }
+
+        .day-label.warm {
+            background: var(--dusk);
+        }
+
+        .day-label.forest-green {
+            background: var(--moss);
+        }
+
+        .day-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            color: var(--forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .day-header .day-emoji {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-tagline {
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--light-text);
+        }
+
+        /* Content Card */
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+        }
+
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Twilight Stops */
+        .twilight-card {
+            background: linear-gradient(135deg, #f8f5ff 0%, #f0edf8 100%);
+            border-left: 4px solid var(--twilight);
+        }
+
+        .twilight-card h3 {
+            color: var(--twilight);
+        }
+
+        .stop-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .stop-list li {
+            padding: 0.6rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .stop-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--twilight);
+            opacity: 0.5;
+        }
+
+        .stop-list li strong {
+            color: var(--twilight);
+        }
+
+        /* Stay Card */
+        .stay-card {
+            background: linear-gradient(135deg, #f8f6f2 0%, #f2efe8 100%);
+            border-left: 4px solid var(--warm);
+        }
+
+        .stay-card h3 {
+            color: var(--dusk);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stay-card .stay-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--forest);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Image Placeholders */
+        .image-card {
+            background: linear-gradient(135deg, #e8efe8 0%, #d8e5df 100%);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-card.ocean-img {
+            background: linear-gradient(135deg, #dae8ef 0%, #c8dde8 100%);
+        }
+
+        .image-card.sunset-img {
+            background: linear-gradient(135deg, #f0e8df 0%, #e8d8c8 100%);
+        }
+
+        .image-card.falls-img {
+            background: linear-gradient(135deg, #d8e0ef 0%, #c8d5e8 100%);
+        }
+
+        .image-card .img-emoji {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .image-card .img-caption {
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--light-text);
+        }
+
+        /* Photo Hit List */
+        .photo-list {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            padding: 0 1.5rem;
+        }
+
+        .photo-list-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .photo-list-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--forest);
+        }
+
+        .photo-table {
+            width: 100%;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+        }
+
+        .photo-row {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #f0ede8;
+        }
+
+        .photo-row:last-child {
+            border-bottom: none;
+        }
+
+        .photo-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--forest);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-right: 1rem;
+        }
+
+        .photo-info {
+            flex: 1;
+        }
+
+        .photo-shot {
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .photo-location {
+            font-size: 0.8rem;
+            color: var(--light-text);
+            margin-top: 0.15rem;
+        }
+
+        /* Evening Options */
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.85rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--moss);
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(165deg, var(--forest) 0%, var(--dark) 100%);
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #fff;
+        }
+
+        .footer p {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .footer .footer-emoji {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            letter-spacing: 0.5rem;
+            opacity: 0.6;
+        }
+
+        /* Divider */
+        .divider {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--mist);
+            font-size: 1.5rem;
+            letter-spacing: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .card {
+                padding: 1.5rem;
+            }
+            .day-section {
+                margin-bottom: 2rem;
+            }
+            .photo-row {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-trees">🌲 🌲 🌲</div>
+            <h1>Penny's Pacific Northwest Adventure</h1>
+            <p class="hero-subtitle">April 3–10, 2026 • Seattle → Olympic Peninsula → Cannon Beach → Portland</p>
+            <p class="hero-quote">"The Olympic Peninsula is the most beautiful place I have ever been."</p>
+            <p class="hero-quote-attr">— Bella Swan, Twilight</p>
+        </div>
+        <div class="scroll-hint">▼ scroll to explore</div>
+    </div>
+
+    <div class="route-banner">
+        <h2>🗺️ THE ROUTE</h2>
+        <div class="route-flow">Seattle ✈️ → Olympic Peninsula 🌧️ → Cannon Beach 🌊 → Portland 🌁 → Home ✈️</div>
+        <div class="route-summary">7 nights • 4 bases • Zero boring days.</div>
+    </div>
+
+    <div class="intro">
+        <p>This trip was designed for you. Twilight vibes, ancient forests dripping with moss, wild beaches with sea stacks rising from the mist, and the kind of nature photos your friends have never seen. Every day has a "wow" moment. Bring your camera and your sense of wonder.</p>
+    </div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <div class="day-emoji">✈️</div>
+            <span class="day-label">Day 1</span>
+            <h2>Arrival in Seattle</h2>
+            <p class="day-tagline">"City buzz. Anticipation. We're really doing this."</p>
+        </div>
+        <div class="card">
+            <p>You land in Seattle and check into a downtown hotel with skyline views. Tonight is light — dinner somewhere fun, maybe Pike Place Market for sunset vibes if you're not too tired. Sleep well. Tomorrow the real adventure begins.</p>
+        </div>
+    </div>
+
+    <div class="divider">· · ·</div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <div class="day-emoji">🌧️</div>
+            <span class="day-label twilight">Day 2</span>
+            <h2>Seattle → Forks: Welcome to Twilight Country</h2>
+            <p class="day-tagline">"I just walked through Bella's world."</p>
+        </div>
+        <div class="card">
+            <p>The drive from Seattle to Forks takes you through deep forests and past Lake Crescent — a glacier-carved, impossibly turquoise lake inside Olympic National Park. Stop. Get out. Take photos. It's unreal.</p>
+        </div>
+        <div class="image-card ocean-img">
+            <div class="img-emoji">🌠</div>
+            <div class="img-caption">Lake Crescent — Stop here on your drive to Forks</div>
+        </div>
+        <div class="card">
+            <p>You arrive in Forks — population 3,446, the rainiest town in the lower 48, and the town Stephenie Meyer chose as Bella Swan's new home.</p>
+        </div>
+        <div class="card twilight-card">
+            <h3>🧛 Twilight Stops</h3>
+            <ul class="stop-list">
+                <li><strong>Forever Twilight in Forks Collection</strong> — Screen-worn costumes and actual movie props from all five films. Edward's, Bella's, and Jacob's outfits. Chuckesmee. Photo ops everywhere. It's FREE and open Saturday Noon–4 PM. Sign up for your time slot when you arrive — they fill fast!</li>
+                <li><strong>Bella's Trucks</strong> outside the Forks Chamber of Commerce — selfie required</li>
+                <li><strong>Forks High School</strong> — yes, that Forks High School</li>
+                <li><strong>The Swan Residence</strong> — the house that inspired Charlie and Bella's home</li>
+                <li><strong>The Cullen House (Miller Tree Inn)</strong> — the book's inspiration for the Cullen residence</li>
+                <li>Pick up a <strong>free self-guided Twilight tour map</strong> at the Forks Chamber of Commerce</li>
+            </ul>
+        </div>
+        <div class="card stay-card">
+            <h3>🏠 Where You Stay</h3>
+            <div class="stay-name">Woodland Inns, Forks</div>
+            <p>Beautiful private cabins with fireplaces, full kitchens, and cozy vibes. Think luxury cabin in the woods. Your own front porch. The forest right outside your door.</p>
+        </div>
+    </div>
+
+    <div class="divider">· · ·</div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <div class="day-emoji">🌿</div>
+            <span class="day-label forest-green">Day 3</span>
+            <h2>The Rainforest + Wild Beaches</h2>
+            <p class="day-tagline">"This is the most beautiful place I've ever been."</p>
+        </div>
+        <div class="card">
+            <h3>Morning: Hoh Rain Forest — Hall of Mosses Trail</h3>
+            <p>A 1.2-mile loop through the most magical forest on Earth. Western hemlocks and bigleaf maples draped in every shade of green you can imagine — hanging mosses, ferns carpeting the floor, trees reaching 250 feet into the sky. It feels like walking into another world.</p>
+            <p>The light filters through the canopy like something from a fairy tale. This trail is easy enough for anyone but stunning enough to leave you speechless.</p>
+        </div>
+        <div class="image-card">
+            <div class="img-emoji">🌳</div>
+            <div class="img-caption">Hall of Mosses Trail — Every shade of green you can imagine</div>
+        </div>
+        <div class="card">
+            <p><em>"I swear, I've never seen anything like it. The greenness and the size of the plants are beyond anything on the east coast."</em></p>
+            <h3>Afternoon: Second Beach, La Push</h3>
+            <p>A 0.7-mile trail winds through dense, mossy forest and then drops you onto a wild sandy beach with massive sea stacks rising from the ocean, tidepools, a natural rock arch, and driftwood scattered everywhere.</p>
+            <p>This is where Jacob told Bella the truth about Edward on the beach. The mist, the sound of the waves, the raw Pacific coast — this is peak Twilight energy.</p>
+        </div>
+        <div class="image-card ocean-img">
+            <div class="img-emoji">🌊</div>
+            <div class="img-caption">Second Beach, La Push — Sea stacks, mist, and Twilight memories</div>
+        </div>
+        <div class="card">
+            <h3>Sunset: Rialto Beach</h3>
+            <p>Giant driftwood logs, sea stacks disappearing into fog, and the wild North Pacific. Walk toward Hole-in-the-Wall — a sea arch carved by centuries of waves. If the light cooperates, sunset here is absolutely cinematic.</p>
+        </div>
+    </div>
+
+    <div class="divider">· · ·</div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <div class="day-emoji">🚗</div>
+            <span class="day-label ocean">Day 4</span>
+            <h2>Forks → Cannon Beach: Penny's Favorite Place</h2>
+            <p class="day-tagline">"I never want to leave this place."</p>
+        </div>
+        <div class="card">
+            <p>A scenic 4.5–5 hour coastal drive from Forks down to Cannon Beach, Oregon. The drive itself is gorgeous — forests, small coastal towns, bridges over rivers.</p>
+            <p>You arrive at Cannon Beach in the afternoon. Walk out to the beach. And there it is:</p>
+            <h3>🪨 Haystack Rock</h3>
+            <p>235 feet of ancient basalt rising straight out of the sand. Surrounded by tidepools. At low tide you can walk right up to it. At sunset, it silhouettes against pink and orange sky. This is one of the most photographed landmarks on the entire Pacific Coast.</p>
+        </div>
+        <div class="image-card sunset-img">
+            <div class="img-emoji">🌅</div>
+            <div class="img-caption">Haystack Rock at sunset — Your moment</div>
+        </div>
+        <div class="card">
+            <h3>🥾 Indian Beach Trail / Ecola State Park</h3>
+            <p>Your spot. The trail through Ecola's coastal forest with views of cliffs dropping to the Pacific. Dense coastal evergreens, moss, ocean mist. (We'll check road access conditions closer to your trip date.)</p>
+        </div>
+        <div class="card stay-card">
+            <h3>🏨 Where You Stay</h3>
+            <div class="stay-name">The Stephanie Inn</div>
+            <p>An iconic, elegant oceanfront hotel steps from the beach. Fireplaces in every room. Soaking tubs. Binoculars for whale watching from your window. Lanterns for night beach walks. Complimentary gourmet breakfast and evening wine gathering. You can hear the ocean from your bed.</p>
+        </div>
+    </div>
+
+    <div class="divider">· · ·</div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <div class="day-emoji">🌁</div>
+            <span class="day-label warm">Day 5</span>
+            <h2>Cannon Beach → Portland</h2>
+            <p class="day-tagline">City energy meets Pacific Northwest cool.</p>
+        </div>
+        <div class="card">
+            <p>Start the morning with one last walk on the beach. Maybe catch low tide at Haystack Rock.</p>
+            <p>Short 1.5-hour drive to Portland — Oregon's coolest city. Check in, explore the neighborhood, and ease into city mode.</p>
+            <h3>Evening Options</h3>
+            <ul class="options-list">
+                <li><strong>Powell's City of Books</strong> — the largest independent bookstore in the world. An entire city block of books. Find the Twilight section. Find everything.</li>
+                <li><strong>Dinner</strong> somewhere great in the Pearl District or on Mississippi Ave</li>
+            </ul>
+        </div>
+        <div class="card stay-card">
+            <h3>🏨 Where You Stay</h3>
+            <div class="stay-name">Embassy Suites by Hilton Portland Downtown</div>
+            <p>Spacious family suite, separate living area, complimentary breakfast every morning, and an evening reception. Downtown location, walking distance to everything.</p>
+        </div>
+    </div>
+
+    <div class="divider">· · ·</div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <div class="day-emoji">💧</div>
+            <span class="day-label">Day 6</span>
+            <h2>Waterfall Day: Columbia River Gorge + Multnomah Falls</h2>
+            <p class="day-tagline">"I literally walked behind a waterfall."</p>
+        </div>
+        <div class="card">
+            <p>A half-day trip east of Portland into the Columbia River Gorge — a dramatic river canyon with dozens of waterfalls.</p>
+            <h3>Multnomah Falls</h3>
+            <p>Oregon's tallest waterfall. 620 feet of cascading water, fed by underground springs. In April, the flow is at its strongest — spring runoff makes the falls absolutely thundering.</p>
+            <p>No reservations needed in April (timed permits are only required May 22–Sept 7). Walk up to Benson Bridge for the classic view, or hike to the top for the full experience.</p>
+        </div>
+        <div class="image-card falls-img">
+            <div class="img-emoji">🎨</div>
+            <div class="img-caption">Multnomah Falls — 620 feet of spring-fed power</div>
+        </div>
+        <div class="card">
+            <h3>Bonus Option: Silver Falls State Park</h3>
+            <p>If you want more waterfalls, Silver Falls is about an hour south of Portland. The Trail of Ten Falls is an 8-mile loop past ten waterfalls — and you walk behind four of them.</p>
+            <p>In April, the forest is neon-green with new spring growth, and the falls are roaring. This is bucket-list-level hiking.</p>
+        </div>
+    </div>
+
+    <div class="divider">· · ·</div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <div class="day-emoji">🌲</div>
+            <span class="day-label forest-green">Day 7</span>
+            <h2>Forest Park + Chill Portland Day</h2>
+            <p class="day-tagline">Relaxed, golden. "I don't want to go home."</p>
+        </div>
+        <div class="card">
+            <h3>Morning: Forest Park</h3>
+            <p>Portland has a 5,200-acre urban forest — one of the largest in any US city. The trails feel like a quieter version of the Hoh Rainforest. Mossy trees, fern-lined paths, dappled light. Perfect for one more round of magical forest photos.</p>
+            <h3>Afternoon: Portland Exploring</h3>
+            <ul class="options-list">
+                <li>Vintage shopping on <strong>Hawthorne Blvd</strong></li>
+                <li>Coffee at one of Portland's legendary cafés</li>
+                <li><strong>Alberta Arts District</strong> murals and galleries</li>
+                <li>One last sunset from somewhere beautiful</li>
+            </ul>
+            <h3>Evening: Last-Night Dinner 🍽</h3>
+            <p>A special dinner to cap off an incredible week.</p>
+        </div>
+    </div>
+
+    <div class="divider">· · ·</div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <div class="day-emoji">✈️</div>
+            <span class="day-label">Day 8</span>
+            <h2>Portland → Home</h2>
+        </div>
+        <div class="card">
+            <p>Morning flight from Portland (PDX) back to Florida. Sleep on the plane. Dream about mossy forests and misty beaches.</p>
+        </div>
+    </div>
+
+    <div class="divider">· · ·</div>
+
+    <div class="photo-list">
+        <div class="photo-list-header">
+            <h2>📸 Your Photo Hit List</h2>
+        </div>
+        <div class="photo-table">
+            <div class="photo-row">
+                <div class="photo-num">1</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Selfie with Bella's Truck</div>
+                    <div class="photo-location">Forks Chamber of Commerce</div>
+                </div>
+            </div>
+            <div class="photo-row">
+                <div class="photo-num">2</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Standing in the moss cathedral</div>
+                    <div class="photo-location">Hall of Mosses, Hoh Rainforest</div>
+                </div>
+            </div>
+            <div class="photo-row">
+                <div class="photo-num">3</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Sea stacks in the mist</div>
+                    <div class="photo-location">Second Beach, La Push</div>
+                </div>
+            </div>
+            <div class="photo-row">
+                <div class="photo-num">4</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Driftwood + ocean at golden hour</div>
+                    <div class="photo-location">Rialto Beach</div>
+                </div>
+            </div>
+            <div class="photo-row">
+                <div class="photo-num">5</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Haystack Rock at sunset</div>
+                    <div class="photo-location">Cannon Beach</div>
+                </div>
+            </div>
+            <div class="photo-row">
+                <div class="photo-num">6</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Coastal forest trail</div>
+                    <div class="photo-location">Indian Beach, Ecola State Park</div>
+                </div>
+            </div>
+            <div class="photo-row">
+                <div class="photo-num">7</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Waterfall power shot</div>
+                    <div class="photo-location">Multnomah Falls</div>
+                </div>
+            </div>
+            <div class="photo-row">
+                <div class="photo-num">8</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Walking behind a waterfall</div>
+                    <div class="photo-location">Silver Falls (if you go)</div>
+                </div>
+            </div>
+            <div class="photo-row">
+                <div class="photo-num">9</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Mossy urban forest</div>
+                    <div class="photo-location">Forest Park, Portland</div>
+                </div>
+            </div>
+            <div class="photo-row">
+                <div class="photo-num">10</div>
+                <div class="photo-info">
+                    <div class="photo-shot">Lake Crescent turquoise water</div>
+                    <div class="photo-location">Lake Crescent, Olympic NP</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>This trip was made for you, Penny.<br>Go get those photos.</p>
+        <div class="footer-emoji">🖤 🌲 🐺</div>
+    </div>
+</body>
+</html>
